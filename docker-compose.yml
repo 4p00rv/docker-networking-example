@@ -3,7 +3,14 @@ version: '3.7'
 services:
   frontend:
     build: ./frontend
+    depends_on:
+      - redis
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend:/frontend
+
+  redis:
+     image: redis:5.0.5
+
+  backend:
+    build: ./backend
+    depends_on: redis

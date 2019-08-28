@@ -6,10 +6,22 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var viewRouter  = require('./routes/view');
+var voteRouter  = require('./routes/vote');
+var submitRouter = require('./routes/submit');
 
 var app = express();
 
+var redis = require('redis');
+var redisClient = redis.createClient(6379, 'redis');
+
+redisClient.on('connect', function() {
+    console.log('Redis client connected');
+    redisClient.set('votes', 0, redis.print);
+});
+
 // view engine setup
+app.set('redisClient', redisClient);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -21,6 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/vote', voteRouter);
+app.use('/view', viewRouter);
+app.use('/submit', submitRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

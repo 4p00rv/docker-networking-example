@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Press the button below to vote</p>
+    <form id="vote" name="vote" method="post" action="/submit">
+      <button id="btnSubmit" type="submit">Vote</button>
+    </form>
+  </body>
+</html>
