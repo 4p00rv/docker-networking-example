@@ -13,4 +13,11 @@ services:
 
   backend:
     build: ./backend
-    depends_on: redis
+    #    volumes:
+    #      - ./backend:/backend
+    depends_on: 
+      - redis
+
+networks:
+  front:
+  back:
